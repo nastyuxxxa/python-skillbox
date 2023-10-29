@@ -1,14 +1,28 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None
+
+
 class Stack:
     def __init__(self):
-        self.stack = []
-
-    def push(self, item):
-        self.stack.append(item)
+        self.end = None
 
     def pop(self):
-        if len(self.stack) < 1:
+        if self.end is None:
             return None
-        return self.stack.pop()
+        val = self.end.data
+        self.end = self.end.prev
+        return val
+
+    def push(self, val):
+        new_node = Node(val)
+        new_node.prev = self.end
+        self.end = new_node
 
     def print(self):
-        print(' '.join(map(str, self.stack)))
+        current_node = self.end
+        while current_node:
+            print(current_node.data, end=" ")
+            current_node = current_node.prev
+        print()
